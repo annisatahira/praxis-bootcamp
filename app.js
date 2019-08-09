@@ -4,6 +4,7 @@ const array_lib = require("./lib/array")
 const object_lib = require("./lib/object")
 const array_sort = require("./lib/array-sort")
 const conditional = require("./lib/conditional")
+const task_condition = require("./lib/task-condition")
 
 /**
  * List of imported routes
