@@ -8,6 +8,7 @@ const Schema = mongoose.Schema
 let bookSchema = new Schema({
     title: String,
     description: String,
+    price: Number,
     created_at: {
         type: Date,
         default: Date.now
