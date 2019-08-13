@@ -1,11 +1,9 @@
 /**
- * 
  * Book Schema
- * 
  */
 
-const moongose = require("mongoose")
-const Schema = moongose.Schema
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
 let bookSchema = new Schema({
     title: String,
