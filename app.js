@@ -7,6 +7,7 @@ require("./db") // database connection
  */
 const index_routes = require("./routes/index")
 const book_routes = require("./routes/books")
+const user_routes = require("./routes/user")
 /**
  * List of imported routes
  */
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
  */
 app.use("/index", index_routes)
 app.use("/book", book_routes)
+app.use("/user", user_routes)
 //
 
 /**
