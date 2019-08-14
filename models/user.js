@@ -6,7 +6,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 let userSchema = new Schema({
-    nama: String,
+    name: String,
     email: String,
     phone: {
         type: Number,

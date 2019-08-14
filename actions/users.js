@@ -1,20 +1,10 @@
 const User = require("../models/user")
-const EmailValidator = require('email-validator')
 
 const create = async (req) => {
-    let { nama, email, phone } = req.body
-
+    let { name, email, phone } = req.body
     phone = parseInt(phone)
-    email = email.toLowerCase()
-    if (EmailValidator.validate(email) === false) {
-        return "Wrong type of `email`"
-    }
-
-    console.log(`Value of phone ${phone}`)
-    console.log(`Value of email ${email}`)
-
     var insert_data = {
-        nama,
+        name,
         email,
         phone
     }
@@ -22,7 +12,6 @@ const create = async (req) => {
     let data = new User(insert_data)
 
     try {
-
         await data.save()
 
         return data
@@ -36,7 +25,7 @@ const getAll = async () => {
         let query = await User.find({}).exec()
         let data = query.map((v, i) => {
             return {
-                nama: v.nama,
+                name: v.name,
                 email: v.email,
                 phone: v.phone
             }
@@ -60,8 +49,44 @@ const getDetail = async (id) => {
     }
 }
 
+const update = async (id, updated_data) => {
+    let { name, email, phone, fresh } = updated_data
+    let opts = {
+        new: fresh === "true" ? true : false
+    }
+    let data = {
+        name,
+        email,
+        phone
+    }
+
+    try {
+        let query = await User.findOneAndUpdate({
+            _id: id
+        }, data, opts).exec()
+
+        return query
+    } catch (err) {
+        throw err
+    }
+}
+
+const destroy = async (id) => {
+    try {
+        let query = await User.findOneAndDelete({
+            _id: id
+        }).exec()
+
+        return query
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports = {
     create,
     getAll,
-    getDetail
+    getDetail,
+    update,
+    destroy
 }
