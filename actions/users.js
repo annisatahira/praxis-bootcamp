@@ -1,11 +1,18 @@
 const User = require("../models/user")
+const EmailValidator = require('email-validator')
 
 const create = async (req) => {
     let { nama, email, phone } = req.body
+
     phone = parseInt(phone)
     email = email.toLowerCase()
+    if (EmailValidator.validate(email) === false) {
+        return "Wrong type of `email`"
+    }
+
     console.log(`Value of phone ${phone}`)
     console.log(`Value of email ${email}`)
+
     var insert_data = {
         nama,
         email,
@@ -15,6 +22,7 @@ const create = async (req) => {
     let data = new User(insert_data)
 
     try {
+
         await data.save()
 
         return data
