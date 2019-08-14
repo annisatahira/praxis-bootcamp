@@ -3,7 +3,6 @@ const EmailValidator = require('email-validator')
 
 const create = async (req) => {
     let { nama, email, phone } = req.body
-
     phone = parseInt(phone)
     email = email.toLowerCase()
     if (EmailValidator.validate(email) === false) {
