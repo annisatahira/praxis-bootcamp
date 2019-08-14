@@ -1,23 +1,23 @@
 const express = require('express')
 const router = express.Router()
-const { create, getAll } = require("../actions/user")
+const { create, getAll, getDetail } = require("../actions/users")
 const { isString } = require("lodash")
 
-router.post("/", (req, res) => {
-    let data = create(req)
+router.post("/", async (req, res) => {
+    try {
+        let data = await create(req)
 
-    if (isString(data) === true) {
+        return res.status(200).json({
+            status: "success",
+            data,
+            message: "User created successfully!"
+        })
+    } catch (err) {
         return res.status(400).json({
             status: "error",
-            message: data
+            message: err.message
         })
     }
-
-    return res.status(200).json({
-        status: "success",
-        data,
-        message: "New User created successfully!"
-    })
 })
 
 router.get("/", async (req, res) => {
@@ -28,6 +28,24 @@ router.get("/", async (req, res) => {
         data,
         message: "Get all user data"
     })
+})
+
+router.get("/:id", async (req, res) => {
+    try {
+        let { id } = req.params
+        let data = await getDetail(id)
+
+        return res.status(200).json({
+            status: "success",
+            data,
+            message: "Get user detail successfully!"
+        })
+    } catch (err) {
+        return res.status(400).json({
+            status: "error",
+            message: err.message
+        })
+    }
 })
 
 module.exports = router
