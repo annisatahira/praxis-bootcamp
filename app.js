@@ -23,9 +23,7 @@ app.get('/', (req, res) => {
 /**
  * Set routes imported
  */
-app.use("/index", index_routes)
-app.use("/book", book_routes)
-app.use("/user", user_routes)
+require('./routes/main')(app) // all routes imported
 //
 
 /**
