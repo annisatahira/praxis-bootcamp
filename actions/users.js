@@ -1,7 +1,7 @@
 const User = require("../models/user")
 
 const create = async (req) => {
-    let { name, email, phone } = req.body
+    let { _id, name, email, phone } = req.body
     phone = parseInt(phone)
     var insert_data = {
         name,
@@ -25,6 +25,7 @@ const getAll = async () => {
         let query = await User.find({}).exec()
         let data = query.map((v, i) => {
             return {
+                _id: v.id,
                 name: v.name,
                 email: v.email,
                 phone: v.phone

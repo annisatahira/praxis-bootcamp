@@ -1,8 +1,9 @@
 const Book = require("../models/book")
 const { isInteger } = require("lodash")
+const User = require("../models/user")
 
 const create = (req) => {
-    let { title, description, price } = req.body
+    let { title, description, price, author } = req.body
     price = parseInt(price)
     console.log(`Value of price ${price}`)
 
@@ -13,7 +14,8 @@ const create = (req) => {
     var insert_data = {
         title,
         description,
-        price
+        price,
+        author
     }
 
     let data = new Book(insert_data)
@@ -23,7 +25,14 @@ const create = (req) => {
 }
 
 const getAll = async () => {
-    let query = await Book.find({}).exec()
+    let query = await Book.find({})
+        .populate([
+            {
+                path: 'author',
+                model: User
+            }
+        ]).exec()
+
     console.log(`Result ${query}`)
 
     return query
