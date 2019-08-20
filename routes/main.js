@@ -1,3 +1,4 @@
+const verifyToken = require("../middlewares/verify_token.middleware")
 const users = require("./user")
 const index = require("./index")
 const books = require("./books")
@@ -10,6 +11,7 @@ const routes = (app) => {
     app.use("/shop", shops)
     app.use("/user", users)
     app.use("/auth", auth)
+    app.use("/user", verifyToken(), users)
 }
 
 module.exports = routes
